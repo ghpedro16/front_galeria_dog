@@ -1,11 +1,22 @@
 'use strict'
 
-async function buscarImagens(raca){
+async function buscarImagens(){
+    const raca = document.getElementById('input').value
     const url = `https://dog.ceo/api/breed/${raca}/images`
+    
     const response = await fetch(url)
     const imagens = await response.json()
-    console.log(imagens.message)
+
+    const galeria = document.getElementById('galeria')
+    galeria.innerHTML = ''
+
+    imagens.message.forEach(urlImagem => {
+        const imagem = document.createElement('img')
+        imagem.src = urlImagem
+        galeria.appendChild(imagem)
+    });
+
 }
 
-buscarImagens()
-
+const buscar = document.getElementById('botao-buscar')
+buscar.addEventListener('click', buscarImagens)
